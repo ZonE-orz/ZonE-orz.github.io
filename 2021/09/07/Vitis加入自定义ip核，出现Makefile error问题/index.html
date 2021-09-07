@@ -109,6 +109,8 @@
   
     <li><a href="/tags/ZYNQ/">🏷️ ZYNQ</a></li>
   
+    <li><a href="/tags/vivado/">🏷️ vivado</a></li>
+  
 </ul>
         </div>
       </div>
@@ -131,7 +133,8 @@
       
       
       <section class="article-entry markdown-body layout-margin content-padding--large soft-size--large soft-style--box">
-        <h5 id="问题描述：-在vivado里加入了自定义IP核，vitis-build-APP时出现错误，同时硬件工程Out-of-date，如下图所示。"><a href="#问题描述：-在vivado里加入了自定义IP核，vitis-build-APP时出现错误，同时硬件工程Out-of-date，如下图所示。" class="headerlink" title="问题描述： 在vivado里加入了自定义IP核，vitis build APP时出现错误，同时硬件工程Out-of-date，如下图所示。"></a>问题描述： 在vivado里加入了自定义IP核，vitis build APP时出现错误，同时硬件工程Out-of-date，如下图所示。</h5><p><img src="/source/_posts/photo/image-20210906133529596.png" alt="image-20210906133529596"></p>
+        <h5 id="问题描述：-在vivado里加入了自定义IP核，vitis-build-APP时出现错误，同时硬件工程Out-of-date，如下图所示。"><a href="#问题描述：-在vivado里加入了自定义IP核，vitis-build-APP时出现错误，同时硬件工程Out-of-date，如下图所示。" class="headerlink" title="问题描述： 在vivado里加入了自定义IP核，vitis build APP时出现错误，同时硬件工程Out-of-date，如下图所示。"></a>问题描述： 在vivado里加入了自定义IP核，vitis build APP时出现错误，同时硬件工程Out-of-date，如下图所示。</h5><p><img src="/photo/image-20210906133506799.png" alt="image-20210906133506799"></p>
+<p><img src="/photo/image-20210906133529596.png" alt="image-20210906133529596"></p>
 <h5 id="解决方法：-修改3个位置的Makefile。"><a href="#解决方法：-修改3个位置的Makefile。" class="headerlink" title="解决方法： 修改3个位置的Makefile。"></a>解决方法： 修改3个位置的Makefile。</h5><ol>
 <li><p>随便找到工程下的一个Makefile，复制。</p>
 <p>我这里找的是Platform/ps7_cortexa9_0/standalone/bsp/ps7_cortexa9_0/libsrc/cpu/src/Makefile，代码如下所示。</p>
@@ -140,10 +143,10 @@
 <h5 id="a-Platform-hw-drivers-src-Makefile"><a href="#a-Platform-hw-drivers-src-Makefile" class="headerlink" title="(a) Platform/hw/drivers//src/Makefile"></a>(a) Platform/hw/drivers/<CustomIP_name>/src/Makefile</h5><h5 id="b-Platform-ps7-cortexa9-0-standalone-bsp-ps7-cortexa9-0-libsrc-src-Makefile"><a href="#b-Platform-ps7-cortexa9-0-standalone-bsp-ps7-cortexa9-0-libsrc-src-Makefile" class="headerlink" title="(b) Platform/ps7_cortexa9_0/standalone/bsp/ps7_cortexa9_0/libsrc//src/Makefile"></a>(b) Platform/ps7_cortexa9_0/standalone/bsp/ps7_cortexa9_0/libsrc/<CustomIP_name>/src/Makefile</h5><h5 id="c-Platform-zynq-fsbl-zynq-fsbl-bsp-ps7-cortexa9-0-libsrc-src-Makefile"><a href="#c-Platform-zynq-fsbl-zynq-fsbl-bsp-ps7-cortexa9-0-libsrc-src-Makefile" class="headerlink" title="(c) Platform/zynq_fsbl/zynq_fsbl_bsp/ps7_cortexa9_0/libsrc//src/Makefile"></a>(c) Platform/zynq_fsbl/zynq_fsbl_bsp/ps7_cortexa9_0/libsrc/<CustomIP_name>/src/Makefile</h5><p>我这里3个位置的Makefile原来的代码如下所示，全部需要替换成上面复制的代码。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">COMPILER=</span><br><span class="line">ARCHIVER=</span><br><span class="line">CP=cp</span><br><span class="line">COMPILER_FLAGS=</span><br><span class="line">EXTRA_COMPILER_FLAGS=</span><br><span class="line">LIB=libxil.a</span><br><span class="line"></span><br><span class="line">RELEASEDIR=../../../lib</span><br><span class="line">INCLUDEDIR=../../../include</span><br><span class="line">INCLUDES=-I./. -I$&#123;INCLUDEDIR&#125;</span><br><span class="line"></span><br><span class="line">INCLUDEFILES=*.h</span><br><span class="line">LIBSOURCES=*.c</span><br><span class="line">OBJECTS = $(addsuffix .o, $(basename $(wildcard *.c)))</span><br><span class="line">ASSEMBLY_OBJECTS = $(addsuffix .o, $(basename $(wildcard *.S)))</span><br><span class="line"></span><br><span class="line">libs:</span><br><span class="line">	echo &quot;Compiling ax_pwm...&quot;</span><br><span class="line">	$(COMPILER) $(COMPILER_FLAGS) $(EXTRA_COMPILER_FLAGS) $(INCLUDES) $(LIBSOURCES)</span><br><span class="line">	$(ARCHIVER) -r $&#123;RELEASEDIR&#125;/$&#123;LIB&#125; $&#123;OBJECTS&#125; $&#123;ASSEMBLY_OBJECTS&#125;</span><br><span class="line">	make clean</span><br><span class="line"></span><br><span class="line">include:</span><br><span class="line">	$&#123;CP&#125; $(INCLUDEFILES) $(INCLUDEDIR)</span><br><span class="line"></span><br><span class="line">clean:</span><br><span class="line">	rm -rf $&#123;OBJECTS&#125; $&#123;ASSEMBLY_OBJECTS&#125;</span><br></pre></td></tr></table></figure></li>
 <li><p>修改完后将APP进行重新Build Project，编译通过。</p>
-<p><img src="D:\MyBlog\Git\Git\myblog\myblog\source_posts\photo\image-20210906135453822.png" alt="image-20210906135453822"></p>
+<p><img src="/photo/image-20210906135453822.png" alt="image-20210906135453822"></p>
 </li>
 </ol>
-<p>– END–</p>
+<p>– END –</p>
 
       </section>
 
@@ -210,7 +213,7 @@
         <svg class="icon icon-tags" viewBox="0 0 1098 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
   <path d="M283.42180005 272q0-28.38857157-20.09142843-48.48000001t-48.47999998-20.09142842-48.48000002 20.09142842-20.09142846 48.48000001 20.09142846 48.48 48.48000002 20.09142843 48.47999998-20.09142843 20.09142843-48.48zM855.0332285 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.03999997 263.58857157q-20.9142853 19.81714313-48.75428534 19.81714312-28.38857157 0-48.20571468-19.81714312l-383.04-383.58857157q-20.36571468-19.81714313-34.55999999-54.10285688t-14.19428534-62.6742853l0-222.85714313q0-27.84000002 20.36571469-48.20571469t48.2057147-20.36571466l222.85714313 0q28.38857157 0 62.6742853 14.19428529t54.65142842 34.55999999l383.04000001 382.49142843q19.81714313 20.9142853 19.81714314 48.75428532zM1060.74751475 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.04 263.58857157q-20.9142853 19.81714313-48.75428531 19.81714312-19.26857155 0-31.61142843-7.47428531t-28.38857159-24.13714314l251.79428534-251.7942853q19.81714313-19.81714313 19.81714308-48.20571469 0-27.84000002-19.81714308-48.75428531l-383.04000001-382.49142845q-20.36571468-20.36571468-54.65142842-34.55999999t-62.67428532-14.19428534l120 0q28.38857157 0 62.67428532 14.19428534t54.65142842 34.55999999l383.03999998 382.49142845q19.81714313 20.9142853 19.81714314 48.75428531z" fill="currentColor"></path>
 </svg>
-        1
+        2
       </div>
     </div>
   </div>
@@ -243,7 +246,7 @@
   </div>
   <div class="widget-body">
     <div class="tags-cloud">
-      <a href="/tags/ZYNQ/" style="font-size: 10px;" class="tags-cloud-0">ZYNQ</a>
+      <a href="/tags/ZYNQ/" style="font-size: 10px;" class="tags-cloud-0">ZYNQ</a> <a href="/tags/vivado/" style="font-size: 10px;" class="tags-cloud-0">vivado</a>
     </div>
   </div>
 </section>
