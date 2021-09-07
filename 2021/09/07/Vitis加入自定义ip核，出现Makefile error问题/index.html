@@ -22,7 +22,7 @@
 
   
 
-  <title>Hello World | 鲍温霞的个人站</title>
+  <title>Vitis加入自定义ip核，出现Makefile error问题 | 鲍温霞的个人站</title>
 
   
 
@@ -96,11 +96,11 @@
     <div class="header-content">
       <div class="post-text layout-block">
         <div class="layout-margin">
-          <h1 class="title-wrap">Hello World</h1>
+          <h1 class="title-wrap">Vitis加入自定义ip核，出现Makefile error问题</h1>
           <h2 class="title-sub-wrap">
             <strong>鲍温霞</strong>
             <span>发布于</span>
-            <time  class="article-date" datetime="2021-09-07T07:40:18.874Z" itemprop="datePublished">2021-09-07</time>
+            <time  class="article-date" datetime="2021-09-07T10:14:36.634Z" itemprop="datePublished">2021-09-07</time>
           </h2>
           <ul class="wrap-list dark">
   
@@ -129,19 +129,20 @@
       
       
       <section class="article-entry markdown-body layout-margin content-padding--large soft-size--large soft-style--box">
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+        <h5 id="问题描述：-在vivado里加入了自定义IP核，vitis-build-APP时出现错误，同时硬件工程Out-of-date，如下图所示。"><a href="#问题描述：-在vivado里加入了自定义IP核，vitis-build-APP时出现错误，同时硬件工程Out-of-date，如下图所示。" class="headerlink" title="问题描述： 在vivado里加入了自定义IP核，vitis build APP时出现错误，同时硬件工程Out-of-date，如下图所示。"></a>问题描述： 在vivado里加入了自定义IP核，vitis build APP时出现错误，同时硬件工程Out-of-date，如下图所示。</h5><p><img src="C:\Users\asus\AppData\Roaming\Typora\typora-user-images\image-20210906133506799.png" alt="image-20210906133506799"></p>
+<p><img src="C:\Users\asus\AppData\Roaming\Typora\typora-user-images\image-20210906133529596.png" alt="image-20210906133529596"></p>
+<h5 id="解决方法：-修改3个位置的Makefile。"><a href="#解决方法：-修改3个位置的Makefile。" class="headerlink" title="解决方法： 修改3个位置的Makefile。"></a>解决方法： 修改3个位置的Makefile。</h5><ol>
+<li><p>随便找到工程下的一个Makefile，复制。</p>
+<p>我这里找的是Platform/ps7_cortexa9_0/standalone/bsp/ps7_cortexa9_0/libsrc/cpu/src/Makefile，代码如下所示。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">DRIVER_LIB_VERSION = 1.0</span><br><span class="line">COMPILER=</span><br><span class="line">ARCHIVER=</span><br><span class="line">CP=cp</span><br><span class="line">COMPILER_FLAGS=</span><br><span class="line">EXTRA_COMPILER_FLAGS=</span><br><span class="line">LIB=libxil.a</span><br><span class="line"></span><br><span class="line">CC_FLAGS = $(COMPILER_FLAGS)</span><br><span class="line">ECC_FLAGS = $(EXTRA_COMPILER_FLAGS)</span><br><span class="line"></span><br><span class="line">RELEASEDIR=../../../lib/</span><br><span class="line">INCLUDEDIR=../../../include/</span><br><span class="line">INCLUDES=-I./. -I$(INCLUDEDIR)</span><br><span class="line"></span><br><span class="line">SRCFILES:=$(wildcard *.c)</span><br><span class="line"></span><br><span class="line">OBJECTS = $(addprefix $(RELEASEDIR), $(addsuffix .o, $(basename $(wildcard *.c))))</span><br><span class="line"></span><br><span class="line">libs: $(OBJECTS)</span><br><span class="line"></span><br><span class="line">DEPFILES := $(SRCFILES:%.c=$(RELEASEDIR)%.d)</span><br><span class="line"></span><br><span class="line">include $(wildcard $(DEPFILES))</span><br><span class="line"></span><br><span class="line">include $(wildcard ../../../../dep.mk)</span><br><span class="line"></span><br><span class="line">$(RELEASEDIR)%.o: %.c</span><br><span class="line">	$&#123;COMPILER&#125; $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) $(DEPENDENCY_FLAGS) $&lt; -o $@</span><br><span class="line"></span><br><span class="line">.PHONY: include</span><br><span class="line">include: $(addprefix $(INCLUDEDIR),$(wildcard *.h))</span><br><span class="line"></span><br><span class="line">$(INCLUDEDIR)%.h: %.h</span><br><span class="line">	$(CP) $&lt; $@</span><br><span class="line"></span><br><span class="line">clean:</span><br><span class="line">	rm -rf $&#123;OBJECTS&#125;</span><br><span class="line">	rm -rf $&#123;DEPFILES&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>找到3个位置的Makefile，将上面复制的内容黏贴，替换原来的文件，保存。</p>
+<h5 id="a-Platform-hw-drivers-src-Makefile"><a href="#a-Platform-hw-drivers-src-Makefile" class="headerlink" title="(a) Platform/hw/drivers//src/Makefile"></a>(a) Platform/hw/drivers/<CustomIP_name>/src/Makefile</h5><h5 id="b-Platform-ps7-cortexa9-0-standalone-bsp-ps7-cortexa9-0-libsrc-src-Makefile"><a href="#b-Platform-ps7-cortexa9-0-standalone-bsp-ps7-cortexa9-0-libsrc-src-Makefile" class="headerlink" title="(b) Platform/ps7_cortexa9_0/standalone/bsp/ps7_cortexa9_0/libsrc//src/Makefile"></a>(b) Platform/ps7_cortexa9_0/standalone/bsp/ps7_cortexa9_0/libsrc/<CustomIP_name>/src/Makefile</h5><h5 id="c-Platform-zynq-fsbl-zynq-fsbl-bsp-ps7-cortexa9-0-libsrc-src-Makefile"><a href="#c-Platform-zynq-fsbl-zynq-fsbl-bsp-ps7-cortexa9-0-libsrc-src-Makefile" class="headerlink" title="(c) Platform/zynq_fsbl/zynq_fsbl_bsp/ps7_cortexa9_0/libsrc//src/Makefile"></a>(c) Platform/zynq_fsbl/zynq_fsbl_bsp/ps7_cortexa9_0/libsrc/<CustomIP_name>/src/Makefile</h5><p>我这里3个位置的Makefile原来的代码如下所示，全部需要替换成上面复制的代码。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">COMPILER=</span><br><span class="line">ARCHIVER=</span><br><span class="line">CP=cp</span><br><span class="line">COMPILER_FLAGS=</span><br><span class="line">EXTRA_COMPILER_FLAGS=</span><br><span class="line">LIB=libxil.a</span><br><span class="line"></span><br><span class="line">RELEASEDIR=../../../lib</span><br><span class="line">INCLUDEDIR=../../../include</span><br><span class="line">INCLUDES=-I./. -I$&#123;INCLUDEDIR&#125;</span><br><span class="line"></span><br><span class="line">INCLUDEFILES=*.h</span><br><span class="line">LIBSOURCES=*.c</span><br><span class="line">OBJECTS = $(addsuffix .o, $(basename $(wildcard *.c)))</span><br><span class="line">ASSEMBLY_OBJECTS = $(addsuffix .o, $(basename $(wildcard *.S)))</span><br><span class="line"></span><br><span class="line">libs:</span><br><span class="line">	echo &quot;Compiling ax_pwm...&quot;</span><br><span class="line">	$(COMPILER) $(COMPILER_FLAGS) $(EXTRA_COMPILER_FLAGS) $(INCLUDES) $(LIBSOURCES)</span><br><span class="line">	$(ARCHIVER) -r $&#123;RELEASEDIR&#125;/$&#123;LIB&#125; $&#123;OBJECTS&#125; $&#123;ASSEMBLY_OBJECTS&#125;</span><br><span class="line">	make clean</span><br><span class="line"></span><br><span class="line">include:</span><br><span class="line">	$&#123;CP&#125; $(INCLUDEFILES) $(INCLUDEDIR)</span><br><span class="line"></span><br><span class="line">clean:</span><br><span class="line">	rm -rf $&#123;OBJECTS&#125; $&#123;ASSEMBLY_OBJECTS&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>修改完后将APP进行重新Build Project，编译通过。</p>
+<p><img src="C:\Users\asus\AppData\Roaming\Typora\typora-user-images\image-20210906135500595.png" alt="image-20210906135500595"></p>
+</li>
+</ol>
+<p>– END–</p>
 
       </section>
 
@@ -149,20 +150,20 @@
       
         <nav class="article-nav">
           
+          
             <div class="article-nav-item layout-padding">
   <article class="card-container article-nav-card content-padding--primary soft-size--large soft-style--box">
     
     <div class="card-text">
       
-        <a href="/2021/09/07/Vitis%E5%8A%A0%E5%85%A5%E8%87%AA%E5%AE%9A%E4%B9%89ip%E6%A0%B8%EF%BC%8C%E5%87%BA%E7%8E%B0Makefile%20error%E9%97%AE%E9%A2%98/" itemprop="url">
-          <h2 class="card-text--title text-ellipsis">Vitis加入自定义ip核，出现Makefile error问题</h2>
+        <a href="/2021/09/07/hello-world/" itemprop="url">
+          <h2 class="card-text--title text-ellipsis">Hello World</h2>
         </a>
       
-      <div class="card-text--row">Newer</div>
+      <div class="card-text--row">Older</div>
     </div>
   </article>
 </div>
-          
           
         </nav>
       
